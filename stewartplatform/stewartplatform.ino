@@ -78,7 +78,7 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-   if( loop_count > 10 ) { // every 10 msecs get new data
+   if( loop_count > 100 ) { // every 10 msecs get new data
         loop_count = 0;
 
         if(nunchuk_get_data()){
@@ -101,7 +101,7 @@ void loop() {
           Serial.print(calib_joyx);
           Serial.print("\tCalibrated joy y: ");
           Serial.println(calib_joyy);
-          move_motors(cbutton, zbutton, calib_joyx, calib_joyy);
+          move_motors(cbutton, zbutton, joyx, joyy);
         }else{
           Serial.println("Data not ready");
         }
@@ -122,7 +122,21 @@ void move_motors(int c, int z, int x, int y){
   }else if (z ==1){
     Serial.println("down");
     move_down();
-  }else if (c==0 && z == 0){
+  } else if (x < 53){
+//      Serial.println("tilt left");
+      tilt_left(); 
+  } else if (x > 207){
+//      Serial.println("tilt left");
+      tilt_right();
+  } else if (y > 209){
+//    Serial.println("tilt left");
+    tilt_forward();
+  } else if (y < 55){
+//    Serial.println("tilt left");
+    tilt_backward();
+  } 
+   else if (y < 209 && y >
+  else if (c==0 && z == 0){
     Serial.println("stop");
     stop_moving();
   }
@@ -195,5 +209,130 @@ void stop_moving(){
   digitalWrite(relay11, LOW);
   digitalWrite(relay12, LOW); 
 }
+
+void tilt_forward(){
+  digitalWrite(relay1, LOW);  // motor 1
+  digitalWrite(relay2, HIGH);
+  digitalWrite(relay3, LOW);  // motor 2
+  digitalWrite(relay4, LOW);
+  digitalWrite(relay5, HIGH);  // motor 3
+  digitalWrite(relay6, LOW);
+  digitalWrite(relay7, HIGH); // motor 4
+  digitalWrite(relay8, LOW);  
+  digitalWrite(relay9, LOW); // motor 5
+  digitalWrite(relay10, LOW);
+  digitalWrite(relay11, LOW); // motor 6
+  digitalWrite(relay12, HIGH);   
+}
+
+void tilt_backward(){
+ digitalWrite(relay1, HIGH);  // motor 1
+  digitalWrite(relay2, LOW);
+  digitalWrite(relay3, LOW);  // motor 2
+  digitalWrite(relay4, LOW);
+  digitalWrite(relay5, LOW);  // motor 3
+  digitalWrite(relay6, HIGH);
+  digitalWrite(relay7, LOW); // motor 4
+  digitalWrite(relay8, HIGH);  
+  digitalWrite(relay9, LOW); // motor 5
+  digitalWrite(relay10, LOW);
+  digitalWrite(relay11, HIGH); // motor 6
+  digitalWrite(relay12, LOW); 
+}
+
+void tilt_left(){
+  digitalWrite(relay1, HIGH);  // motor 1
+  digitalWrite(relay2, LOW);
+  digitalWrite(relay3, HIGH);  // motor 2
+  digitalWrite(relay4, LOW);
+  digitalWrite(relay5, HIGH);  // motor 3
+  digitalWrite(relay6, LOW);
+  digitalWrite(relay7, LOW); // motor 4
+  digitalWrite(relay8, HIGH);  
+  digitalWrite(relay9, LOW); // motor 5
+  digitalWrite(relay10, HIGH);
+  digitalWrite(relay11, LOW); // motor 6
+  digitalWrite(relay12, HIGH); 
+}
+
+void tilt_right(){
+  digitalWrite(relay1, LOW);  // motor 1
+  digitalWrite(relay2, HIGH);
+  digitalWrite(relay3, LOW);  // motor 2
+  digitalWrite(relay4, HIGH);
+  digitalWrite(relay5, LOW);  // motor 3
+  digitalWrite(relay6, HIGH);
+  digitalWrite(relay7, HIGH); // motor 4
+  digitalWrite(relay8, LOW);  
+  digitalWrite(relay9, HIGH); // motor 5
+  digitalWrite(relay10, LOW);
+  digitalWrite(relay11, HIGH); // motor 6
+  digitalWrite(relay12, LOW); 
+}
+
+void tilt_fRight(){
+  digitalWrite(relay1, LOW);  // motor 1
+  digitalWrite(relay2, HIGH);
+  digitalWrite(relay3, LOW);  // motor 2
+  digitalWrite(relay4, HIGH);
+  digitalWrite(relay5, LOW);  // motor 3
+  digitalWrite(relay6, LOW);
+  digitalWrite(relay7, HIGH); // motor 4
+  digitalWrite(relay8, LOW);  
+  digitalWrite(relay9, HIGH); // motor 5
+  digitalWrite(relay10, LOW);
+  digitalWrite(relay11, LOW); // motor 6
+  digitalWrite(relay12, LOW); 
+}
+
+}
+void tilt_bRight(){
+  digitalWrite(relay1, LOW);  // motor 1
+  digitalWrite(relay2, LOW);
+  digitalWrite(relay3, LOW);  // motor 2
+  digitalWrite(relay4, HIGH);
+  digitalWrite(relay5, LOW);  // motor 3
+  digitalWrite(relay6, HIGH);
+  digitalWrite(relay7, LOW); // motor 4
+  digitalWrite(relay8, LOW);  
+  digitalWrite(relay9, HIGH); // motor 5
+  digitalWrite(relay10, LOW);
+  digitalWrite(relay11, HIGH); // motor 6
+  digitalWrite(relay12, LOW); 
+}
+}
+
+void tilt_fLeft(){
+  digitalWrite(relay1, LOW);  // motor 1
+  digitalWrite(relay2, LOW);
+  digitalWrite(relay3, HIGH);  // motor 2
+  digitalWrite(relay4, LOW);
+  digitalWrite(relay5, HIGH);  // motor 3
+  digitalWrite(relay6, LOW);
+  digitalWrite(relay7, LOW); // motor 4
+  digitalWrite(relay8, LOW);  
+  digitalWrite(relay9, LOW); // motor 5
+  digitalWrite(relay10, HIGH);
+  digitalWrite(relay11, LOW); // motor 6
+  digitalWrite(relay12, HIGH); 
+}
+
+void tilt_bLeft(){
+  digitalWrite(relay1, HIGH);  // motor 1
+  digitalWrite(relay2, LOW);
+  digitalWrite(relay3, HIGH);  // motor 2
+  digitalWrite(relay4, LOW);
+  digitalWrite(relay5, LOW);  // motor 3
+  digitalWrite(relay6, LOW);
+  digitalWrite(relay7, LOW); // motor 4
+  digitalWrite(relay8, HIGH);  
+  digitalWrite(relay9, LOW); // motor 5
+  digitalWrite(relay10, HIGH);
+  digitalWrite(relay11, LOW); // motor 6
+  digitalWrite(relay12, LOW); 
+
+}
+
+
 
 
