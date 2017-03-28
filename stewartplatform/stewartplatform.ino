@@ -122,20 +122,41 @@ void move_motors(int c, int z, int x, int y){
   }else if (z ==1){
     Serial.println("down");
     move_down();
-  } else if (x < 53){
-//      Serial.println("tilt left");
+  } 
+  else if (y > 160){
+    if (y > 238){
+    Serial.println("tilt forward");
+    tilt_forward();
+    }
+    else if (x > 139){
+      Serial.println("tilt forward + right");
+      tilt_fRight();
+    }  
+    else if (x < 121){
+      Serial.println("tilt forward + left");
+      tilt_fLeft();
+    }
+   }
+   else if (y < 95){
+    if (y < 17){
+    Serial.println("tilt backward");
+    tilt_backward();
+    }
+    else if (x > 139){
+      Serial.println("tilt backward + right");
+      tilt_bRight();
+    }  
+    else if (x < 121){
+      Serial.println("tilt backward + left");
+      tilt_bLeft();
+    }
+   }else if (x < 53){
+     Serial.println("tilt left");
       tilt_left(); 
   } else if (x > 207){
-//      Serial.println("tilt left");
+     Serial.println("tilt right");
       tilt_right();
-  } else if (y > 209){
-//    Serial.println("tilt left");
-    tilt_forward();
-  } else if (y < 55){
-//    Serial.println("tilt left");
-    tilt_backward();
   } 
-   else if (y < 209 && y >
   else if (c==0 && z == 0){
     Serial.println("stop");
     stop_moving();
@@ -285,7 +306,7 @@ void tilt_fRight(){
   digitalWrite(relay12, LOW); 
 }
 
-}
+
 void tilt_bRight(){
   digitalWrite(relay1, LOW);  // motor 1
   digitalWrite(relay2, LOW);
@@ -300,7 +321,7 @@ void tilt_bRight(){
   digitalWrite(relay11, HIGH); // motor 6
   digitalWrite(relay12, LOW); 
 }
-}
+
 
 void tilt_fLeft(){
   digitalWrite(relay1, LOW);  // motor 1
