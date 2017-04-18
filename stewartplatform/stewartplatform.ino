@@ -49,15 +49,15 @@ void setup() {
   digitalWrite(relay11, LOW);
   digitalWrite(relay12, LOW); 
 
-  //Initialize serial ports and nunchuk
-  Serial.begin(19200);
+  //Initialize //Serial ports and nunchuk
+  //Serial.begin(19200);
   
   nunchuk_setpowerpins();    // set power pins for Wii Nunchuk
   nunchuk_init();            // initilization for the Wii Nunchuk
   delay(250);
   
   while(!nunchuk_get_data()){ // loop until Wii Nunchuk is connected to Nunchucky
-    Serial.println("Stuck in loop");
+    //Serial.println("Stuck in loop");
     nunchuk_init();
     delay(250);
     nunchuk_get_data();
@@ -72,7 +72,7 @@ void setup() {
   digitalWrite(led, HIGH);  // let user know they can select mode within (5 seconds)
   delay(5000);
   
-  Serial.print("WiiChuck ready\n");
+  //Serial.print("WiiChuck ready\n");
   
 }
 
@@ -89,21 +89,21 @@ void loop() {
           int joyy = nunchuk_joy_y();
           int calib_joyx = nunchuk_cjoy_x();
           int calib_joyy = nunchuk_cjoy_y();
-          Serial.print("zbutton: "); 
-          Serial.print(zbutton);
-          Serial.print("\tcbutton: ");
-          Serial.print(cbutton);
-          Serial.print("\tjoy x: "); 
-          Serial.print(joyx);
-          Serial.print("\tjoy y: ");
-          Serial.print(joyy);
-          Serial.print("\tCalibrated joy x: "); 
-          Serial.print(calib_joyx);
-          Serial.print("\tCalibrated joy y: ");
-          Serial.println(calib_joyy);
+          ////Serial.print("zbutton: "); 
+          //Serial.print(zbutton);
+          //Serial.print("\tcbutton: ");
+          //Serial.print(cbutton);
+          //Serial.print("\tjoy x: "); 
+          //Serial.print(joyx);
+          //Serial.print("\tjoy y: ");
+          //Serial.print(joyy);
+          //Serial.print("\tCalibrated joy x: "); 
+          //Serial.print(calib_joyx);
+          //Serial.print("\tCalibrated joy y: ");
+          //Serial.println(calib_joyy);
           move_motors(cbutton, zbutton, joyx, joyy);
         }else{
-          Serial.println("Data not ready");
+          //Serial.println("Data not ready");
         }
             
     }
@@ -114,51 +114,51 @@ void loop() {
 
 void move_motors(int c, int z, int x, int y){
   if (c == 1 && z == 1){
-    Serial.println("twist");
+    //Serial.println("twist");
     twist();
   }else if (c == 1){
-    Serial.println("up");
+    //Serial.println("up");
     move_up();
   }else if (z ==1){
-    Serial.println("down");
+    //Serial.println("down");
     move_down();
   } 
   else if (y > 160){
     if (y > 238){
-    Serial.println("tilt forward");
+    //Serial.println("tilt forward");
     tilt_forward();
     }
     else if (x > 139){
-      Serial.println("tilt forward + right");
+      //Serial.println("tilt forward + right");
       tilt_fRight();
     }  
     else if (x < 121){
-      Serial.println("tilt forward + left");
+      //Serial.println("tilt forward + left");
       tilt_fLeft();
     }
    }
    else if (y < 95){
     if (y < 17){
-    Serial.println("tilt backward");
+    //Serial.println("tilt backward");
     tilt_backward();
     }
     else if (x > 139){
-      Serial.println("tilt backward + right");
+      //Serial.println("tilt backward + right");
       tilt_bRight();
     }  
     else if (x < 121){
-      Serial.println("tilt backward + left");
+      //Serial.println("tilt backward + left");
       tilt_bLeft();
     }
    }else if (x < 53){
-     Serial.println("tilt left");
+     //Serial.println("tilt left");
       tilt_left(); 
   } else if (x > 207){
-     Serial.println("tilt right");
+     //Serial.println("tilt right");
       tilt_right();
   } 
   else if (c==0 && z == 0){
-    Serial.println("stop");
+    //Serial.println("stop");
     stop_moving();
   }
 }
